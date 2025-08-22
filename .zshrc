@@ -153,7 +153,7 @@ alias l='ls -CF'                    # Columnar format
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
-alias ~='cd ~'
+alias home='cd ~'
 alias -- -='cd -'                  # Go to previous directory
 
 # Git shortcuts
