@@ -1,0 +1,6 @@
+.idea
+.fleet
+.vscode
+.DS_Store
+.aider*
+CONVENTIONS.md
