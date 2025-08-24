@@ -1,7 +1,3 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
 
 # ============================================================================
 # ENVIRONMENT SETUP
@@ -60,10 +56,7 @@ zstyle ':completion:*' squeeze-slashes true             # Remove extra slashes
 # PROMPT THEME
 # ============================================================================
 
-source $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/catppuccin_macchiato_custom.omp.json)"
 
 # ============================================================================
 # NODE.JS / NVM SETUP
@@ -108,13 +101,22 @@ if command -v fzf >/dev/null 2>&1; then
     --height 40% 
     --layout=reverse 
     --border 
-    --preview "bat --style=numbers --color=always --line-range :500 {}" 2>/dev/null || cat {}
     --preview-window=right:50%:wrap
     --bind "ctrl-y:execute-silent(echo {} | pbcopy)"
     --color=fg:#c0caf5,bg:#1a1b26,hl:#bb9af7
     --color=fg+:#c0caf5,bg+:#292e42,hl+:#7dcfff
     --color=info:#7aa2f7,prompt:#7dcfff,pointer:#bb9af7
-    --color=marker:#9ece6a,spinner:#bb9af7,header:#73daca'
+    --color=marker:#9ece6a,spinner:#bb9af7,header:#73daca
+  '
+
+  # fzf history options - use default behavior
+  export FZF_CTRL_R_OPTS="--no-preview"
+  
+  # macOS-friendly ALT-C alternative (since Option-C produces ç)
+  export FZF_ALT_C_OPTS="
+    --walker-skip .git,node_modules,target
+    --preview 'tree -C {} || ls -la {}'
+    --header 'Press CTRL-O for directory navigation'"
 fi
 
 # zsh-autosuggestions
@@ -201,16 +203,33 @@ killport() {
   lsof -ti tcp:$1 | xargs kill -9
 }
 
-# fzf enhanced cd
+# fzf enhanced file/directory finder
 fcd() {
-  local dir
-  dir=$(fd --type d | fzf +m) && cd "$dir"
+  local selection
+  selection=$(fd --hidden --follow --exclude .git . | fzf +m --preview '
+    if [[ -d {} ]]; then
+      tree -C {} || ls -la {}
+    else
+      bat --style=numbers --color=always --line-range :500 {} 2>/dev/null || cat {}
+    fi')
+  if [[ -n "$selection" ]]; then
+    if [[ -d "$selection" ]]; then
+      cd "$selection"
+    else
+      nvim "$selection"
+    fi
+    zle reset-prompt
+  fi
 }
 
 # fzf enhanced file editing
 fv() {
   local file
-  file=$(fzf +m -q "$1") && nvim "$file"
+  file=$(fd --type f --hidden --follow --exclude .git . | fzf +m -q "$1" --preview 'bat --style=numbers --color=always --line-range :500 {} 2>/dev/null || cat {}')
+  if [[ -n "$file" ]]; then
+    nvim "$file"
+    zle reset-prompt
+  fi
 }
 
 # fzf git checkout branch
@@ -220,18 +239,18 @@ fco() {
   git checkout $(echo "$branch" | sed "s#origin/##" | head -1)
 }
 
-# fzf history search (enhanced Ctrl+R)
-fh() {
-  eval $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
-}
+
 
 # ============================================================================
 # KEY BINDINGS
 # ============================================================================
 
+# Create zsh widgets from functions
+zle -N fcd
+zle -N fv
+
 # Custom key bindings for fzf functions
-bindkey '^f' fcd    # Ctrl+F for fuzzy cd
-bindkey '^v' fv     # Ctrl+V for fuzzy file edit
+bindkey '^f' fcd    # Ctrl+F for fuzzy file/directory finder (cd to dirs, edit files)
 
 # ============================================================================
 # EXTERNAL TOOL INTEGRATIONS
