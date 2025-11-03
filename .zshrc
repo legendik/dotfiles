@@ -1,3 +1,26 @@
+# ------------------------------------------------------------------------------
+# Completion System
+# ------------------------------------------------------------------------------
+autoload -Uz compinit
+compinit
+
+# Case-insensitive completion
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+
+# Menu-based completion
+zstyle ':completion:*' menu select
+
+# Color completion
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+
+# Better completion for kill command
+zstyle ':completion:*:*:kill:*' menu yes select
+zstyle ':completion:*:kill:*' force-list always
+
+# Group completions by category
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*:descriptions' format '%B%d%b'
+
 
 # Homebrew paths
 export PATH="/opt/homebrew/bin:$PATH"
