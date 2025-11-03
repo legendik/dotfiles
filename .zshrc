@@ -40,6 +40,7 @@ fi
 alias ff="fzf --preview 'bat --style=numbers --color=always {}'"
 
 if command -v zoxide &> /dev/null; then
+  eval "$(zoxide init zsh)"
   alias cd="zd"
   zd() {
     if [ $# -eq 0 ]; then
