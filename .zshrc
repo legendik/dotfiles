@@ -56,3 +56,5 @@ if command -v zoxide &> /dev/null; then
     fi
   }
 fi
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
