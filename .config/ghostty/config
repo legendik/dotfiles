@@ -2,4 +2,8 @@ keybind = shift+enter=text:\n
 font-family = Meslo LGS Nerd Font Mono
 font-size = 16
 scrollback-limit = 10000
-theme = "catppuccin-macchiato"
+theme = TokyoNight
+
+macos-titlebar-style = transparent
+
+macos-option-as-alt = true
