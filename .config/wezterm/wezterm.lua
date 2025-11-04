@@ -22,10 +22,10 @@ config.window_decorations = "RESIZE"
 config.window_background_opacity = 0.8
 config.macos_window_background_blur = 10
 
-wezterm.on("gui-startup", function(cmd)
-	local tab, pane, window = wezterm.mux.spawn_window(cmd or {})
-	window:gui_window():maximize()
-end)
+-- wezterm.on("gui-startup", function(cmd)
+-- 	local tab, pane, window = wezterm.mux.spawn_window(cmd or {})
+-- 	window:gui_window():maximize()
+-- end)
 
 -- Padding for breathing room
 config.window_padding = {
