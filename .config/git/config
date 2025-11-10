@@ -1,0 +1,32 @@
+[alias]
+	co = checkout
+	br = branch
+	ci = commit
+	st = status
+[pull]
+	rebase = true
+[init]
+	defaultBranch = master
+[credential "https://github.com"]
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+  helper = !/usr/bin/gh auth git-credential
+[user]
+    name = Marek Šneberger
+    email = marek@sneberger.cz
+    signingkey = 21D1BFEEECBA64FE18557F5B9ACCD965FC310172
+
+[commit]
+    gpgsign = true
+
+[branch]
+    autosetuprebase = always
+
+[color]
+    ui = true
+
+[core]
+    excludesfile = ~/.gitignore_global
+
+[push]
+    default = tracking
