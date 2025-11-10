@@ -1,9 +1,26 @@
-keybind = shift+enter=text:\n
-font-family = Meslo LGS Nerd Font Mono
-font-size = 16
-scrollback-limit = 10000
 theme = TokyoNight
 
-macos-titlebar-style = transparent
+# Font
+font-family = "CaskaydiaMono Nerd Font"
+font-style = Regular
+font-size = 9
 
-macos-option-as-alt = true
+# Window
+window-theme = ghostty
+window-padding-x = 14
+window-padding-y = 14
+confirm-close-surface=false
+resize-overlay = never
+gtk-toolbar-style = flat
+
+# Cursor styling
+cursor-style = "block"
+cursor-style-blink = false
+shell-integration-features = no-cursor
+
+# Keyboard bindings
+keybind = shift+insert=paste_from_clipboard
+keybind = control+insert=copy_to_clipboard
+
+# SSH session terminfo
+shell-integration-features = ssh-env
