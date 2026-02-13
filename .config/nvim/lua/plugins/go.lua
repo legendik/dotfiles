@@ -3,12 +3,6 @@ return {
     "neovim/nvim-lspconfig",
     opts = {
       servers = {
-        golangci_lint_ls = {
-          cmd = { "golangci-lint-langserver" },
-          init_options = {
-            command = { "golangci-lint", "run", "--output.json.path", "stdout", "--show-stats=false" },
-          },
-        },
         gopls = {
           settings = {
             gopls = {
