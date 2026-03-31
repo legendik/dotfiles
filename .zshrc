@@ -82,7 +82,6 @@ fi
 
 # Check if bat is installed for syntax highlighting
 if command -v bat &> /dev/null; then
-    alias cat='bat --style=auto'
     if command -v fzf &> /dev/null; then
         alias ff="fzf --preview 'bat --style=numbers --color=always {}'"
     fi
@@ -93,3 +92,5 @@ else
 fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+alias awsd="source _awsd"
+eval "$(mise activate zsh)"
