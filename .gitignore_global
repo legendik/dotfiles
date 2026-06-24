@@ -5,3 +5,4 @@
 .aider*
 CONVENTIONS.md
 settings.local.json
+.config/nvim/lazy-lock.json
