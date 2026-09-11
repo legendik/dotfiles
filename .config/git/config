@@ -10,14 +10,15 @@
 [credential "https://github.com"]
 	helper = !gh auth git-credential
 [credential "https://gist.github.com"]
-  helper = !gh auth git-credential
+	helper = !gh auth git-credential
 [user]
     name = Marek Šneberger
     email = marek@sneberger.cz
-    signingkey = 21D1BFEEECBA64FE18557F5B9ACCD965FC310172
+	signingkey = CF73E12C83BFDE6D
+#    signingkey = 21D1BFEEECBA64FE18557F5B9ACCD965FC310172
 
 [commit]
-    gpgsign = true
+	gpgsign = true
 
 [branch]
     autosetuprebase = always
@@ -29,4 +30,6 @@
     excludesfile = ~/.gitignore_global
 
 [push]
-    default = tracking
+	default = simple
+[tag]
+	gpgSign = true
