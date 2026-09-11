@@ -21,7 +21,6 @@ zstyle ':completion:*:kill:*' force-list always
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*:descriptions' format '%B%d%b'
 
-
 # Homebrew paths
 export PATH="/opt/homebrew/bin:$PATH"
 export PATH="/opt/homebrew/sbin:$PATH"
@@ -94,3 +93,5 @@ fi
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 alias awsd="source _awsd"
 eval "$(mise activate zsh)"
+
+export PATH="$HOME/.local/bin:$PATH"
